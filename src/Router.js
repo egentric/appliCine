@@ -1,13 +1,13 @@
-import { createRouter, createWebHashHistory } from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 
 // on importe les différents composants
-import { App } from "./App.vue";
-import { FrenchMovies } from "./components/FrenchMovies.vue";
-import { AmericanMovies } from "./components/AmericanMovies.vue";
-import { LastMovies } from "./components/LastMovies.vue";
-import { MoviesDetails } from "./components/MoviesDetails.vue";
-import { SearchMovies } from "./components/SearchMovies.vue";
-import { TopRatedMovies } from "./components/TopRatedMovies.vue";
+import App from "./App.vue";
+import FrenchMovies from "./components/FrenchMovies.vue";
+import AmericanMovies from "./components/AmericanMovies.vue";
+import LastMovies from "./components/LastMovies.vue";
+import MovieDetails from "./components/MovieDetails.vue";
+import SearchMovies from "./components/SearchMovies.vue";
+import TopRatedMovies from "./components/TopRatedMovies.vue";
 
 const routes = [
   // on déclare les routes
@@ -28,8 +28,10 @@ const routes = [
     component: LastMovies,
   },
   {
-    path: "/MoviesDetails",
-    component: MoviesDetails,
+    path: "/Movie/:id",
+    name: "MovieDetails",
+    component: MovieDetails,
+    props: true,
   },
   {
     path: "/SearchMovies",
@@ -42,7 +44,7 @@ const routes = [
 ];
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });
 

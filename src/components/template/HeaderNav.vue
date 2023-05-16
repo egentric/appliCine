@@ -2,7 +2,6 @@
   <nav class="navbar bg-dark navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
   <div class="container-fluid">
     <router-link to="/" class="navbar-brand">AppliCine</router-link>
-    <a class="navbar-brand" href="#">AppliCine</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,16 +12,16 @@
           <router-link to="/" class="nav-link active" aria-current="page">Accueil</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/LastMovies" class="nav-link" href="#">Films de l'année</router-link>
+          <router-link to="/LastMovies" class="nav-link">Films de l'année</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/FrenchMovies" class="nav-link" href="#">Films Français</router-link>
+          <router-link to="/FrenchMovies" class="nav-link">Films Français</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/AmericanMovies" class="nav-link" href="#">Films Americains</router-link>
+          <router-link to="/AmericanMovies" class="nav-link">Films Americains</router-link>
         </li>
         <li class="nav-item">
-          <router-link to="/TopRatedMovies" class="nav-link" href="#">Les 50 mieux notés</router-link>
+          <router-link to="/TopRatedMovies" class="nav-link">Les 50 mieux notés</router-link>
         </li>
 
       </ul>
@@ -34,6 +33,7 @@
   </div>
 </nav>
 </template>
+
 <script>
 import { RouterLink } from "vue-router";
 

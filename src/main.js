@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import { Router } from "vue-router";
+// On importe le routeur
+import router from "./router.js";
 
-createApp(App).mount("#app");
-
-createApp(Router).mount("#router");
+createApp(App).use(router).mount("#app");

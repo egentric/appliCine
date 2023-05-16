@@ -3,15 +3,20 @@
     <HeaderNav />
 
     <div v-if="$route.path == '/'">
-    <!-- si la route est / (racine du site) -->
-    <h1 class="pt-5 font-weight-light">
-      Vos films préférés son sur AppliCiné !
-    </h1>
-    <MoviesList :movies="movies" :loading="loading" :errored="errored" />
+      <!-- si la route est / (racine du site) -->
+      <h1 class="pt-5 font-weight-light pb-4" style="text-align: center">
+        Vos films préférés son sur AppliCiné !
+      </h1>
+      <MoviesList :movies="movies" :loading="loading" :errored="errored" />
     </div>
     <div v-else>
       <!-- Si la route est différente de / -->
       <router-view :key="$route.fullPath"></router-view>
+      <LastMovies v-if="$route.path === '/LastMovies'" />
+      <FrenchMovies v-if="$route.path === '/FrenchMovies'" />
+      <AmericanMovies v-if="$route.path === '/AmericanMovies'" />
+      <TopRatedMovies v-if="$route.path === '/TopRatedMovies'" />
+      <MovieDetails v-if="$route.path === '/MoviesDetails'" />
     </div>
 
     <FooterApp />
@@ -19,20 +24,55 @@
 </template>
 
 <script>
-import HeaderNav from './components/template/HeaderNav.vue'
-import FooterApp from './components/template/FooterApp.vue';
-import MoviesList from './components/utils/MoviesList.vue';
+import axios from "axios";
+import HeaderNav from "./components/template/HeaderNav.vue";
+import FooterApp from "./components/template/FooterApp.vue";
+import MoviesList from "./components/utils/MoviesList.vue";
+import LastMovies from "./components/LastMovies.vue";
+import FrenchMovies from "./components/FrenchMovies.vue";
+import AmericanMovies from "./components/AmericanMovies.vue";
+import TopRatedMovies from "./components/TopRatedMovies.vue";
+import MovieDetails from "./components/MovieDetails.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HeaderNav,
     FooterApp,
-    MoviesList
-}
-}
+    MoviesList,
+    LastMovies,
+    FrenchMovies,
+    AmericanMovies,
+    TopRatedMovies,
+    MovieDetails,
+  },
+  data() {
+    return {
+      movies: [],
+      loading: true,
+      errored: false,
+    };
+  },
 
+  created: function () {
+    axios
+      .get(
+        "https://api.themoviedb.org/3/discover/movie?api_key=b495cd2235b63fb77b75f027990876fd&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&vote_count.gte=1000&with_watch_monetization_types=flatrate"
+      )
+      .then((res1) => {
+        this.movies = res1.data.results;
+        axios
+          .get(
+            "https://api.themoviedb.org/3/discover/movie?api_key=b495cd2235b63fb77b75f027990876fd&language=fr&sort_by=popularity.desc&include_adult=false&include_video=false&page=2&vote_count.gte=1000&with_watch_monetization_types=flatrate"
+          )
+          .then((res2) => {
+            this.movies = this.movies.concat(res2.data.results);
 
+            console.log(this.movies);
+          });
+      });
+  },
+};
 </script>
 
 <style>
