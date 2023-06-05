@@ -3,6 +3,7 @@
     <H1 class="pt-5 font-weight-light pb-4" style="text-align: center"
       >Films Français</H1
     >
+    <SortButtons />
     <MoviesList :movies="movies" :loading="loading" :errored="errored" />
   </div>
 </template>
@@ -10,11 +11,13 @@
 <script>
 import axios from "axios";
 import MoviesList from "./utils/MoviesList.vue";
+import SortButtons from "./utils/SortButtons.vue";
 
 export default {
   name: "FrenchMovies",
   components: {
     MoviesList,
+    SortButtons,
   },
 
   data() {
