@@ -1,10 +1,24 @@
 <template>
-<div></div>
-
+  <div>
+    <input v-model="movieInput" type="text" placeholder="Rechercher un film" />
+  </div>
 </template>
 
 <script>
-export default{
-name : "SearchMovies"
-}
+// import axios from "axios";
+
+export default {
+  //   name: "SearchMovies",
+  //   data() {
+  //     return {
+  //       movieInput: "",
+  //     };
+  //   },
+  //   methods: {
+  //     sendRequest() {
+  //         axios.get()
+  //             .then ((response) =>{
+  //             })
+  //     }
+};
 </script>
