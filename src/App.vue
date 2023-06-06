@@ -7,6 +7,7 @@
       <h1 class="pt-5 font-weight-light pb-4" style="text-align: center">
         Vos films préférés son sur AppliCiné !
       </h1>
+      <SortButtons :movies="movies" @sort-movies="sortMovies" />
       <MoviesList :movies="movies" :loading="loading" :errored="errored" />
     </div>
     <div v-else>
@@ -23,6 +24,7 @@ import axios from "axios";
 import HeaderNav from "./components/template/HeaderNav.vue";
 import FooterApp from "./components/template/FooterApp.vue";
 import MoviesList from "./components/utils/MoviesList.vue";
+import SortButtons from "./components/utils/SortButtons.vue";
 
 export default {
   name: "App",
@@ -30,6 +32,7 @@ export default {
     HeaderNav,
     FooterApp,
     MoviesList,
+    SortButtons,
   },
   data() {
     return {
@@ -37,6 +40,13 @@ export default {
       loading: true,
       errored: false,
     };
+  },
+
+  methods: {
+    sortMovies(sortedMovies) {
+      //déclenche si tri effectué dans sortButton
+      this.movies = sortedMovies; //on stock les films trié
+    },
   },
 
   created: function () {
@@ -81,5 +91,12 @@ export default {
   color: rgb(0, 0, 0);
   font-size: 0.6rem;
   text-align: center;
+}
+h1 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+body {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: aliceblue;
 }
 </style>

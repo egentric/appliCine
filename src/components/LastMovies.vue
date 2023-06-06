@@ -3,6 +3,7 @@
     <H1 class="pt-5 font-weight-light pb-4" style="text-align: center"
       >Les films de 2023</H1
     >
+    <SortButtons :movies="movies" @sort-movies="sortMovies" />
     <MoviesList :movies="movies" :loading="loading" :errored="errored" />
   </div>
 </template>
@@ -10,11 +11,13 @@
 <script>
 import axios from "axios";
 import MoviesList from "./utils/MoviesList.vue";
+import SortButtons from "./utils/SortButtons.vue";
 
 export default {
   name: "LastMovies",
   components: {
     MoviesList,
+    SortButtons,
   },
 
   data() {
@@ -24,6 +27,14 @@ export default {
       errored: false,
     };
   },
+
+  methods: {
+    sortMovies(sortedMovies) {
+      //déclenche si tri effectué dans sortButton
+      this.movies = sortedMovies; //on stock les films trié
+    },
+  },
+
   created: function () {
     axios
       .get(

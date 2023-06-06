@@ -1,7 +1,7 @@
 <template>
   <router-link :to="`/MovieDetails/${id}`" style="text-decoration: none">
     <div class="card border-dark mb-3" style="max-width: 18rem">
-      <div class="card-header bg-transparent border-dark">
+      <div class="card-header border-dark">
         <p style="text-align: center">Rang: {{ index + 1 }}</p>
         <h5 style="text-align: center">{{ title }}</h5>
       </div>
@@ -17,13 +17,27 @@
           <b>Résumé : </b>{{ overview }}
         </p>
       </div>
-      <div class="card-footer bg-transparent border-dark">
+      <div class="card-footer border-dark">
         <button type="button" class="btn btn-dark btn-sm">Voir</button>
       </div>
     </div></router-link
   >
 </template>
+<style>
+.card-body {
+  background-color: snow;
+}
+.card-header {
+  background-color: darkgrey;
+}
 
+.card-footer {
+  background-color: gainsboro;
+}
+h5 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+</style>
 <script>
 export default {
   name: "MovieCard",
@@ -36,6 +50,7 @@ export default {
     "vote_average",
     "overview",
   ],
+
   data() {
     return {
       preUrl: "https://image.tmdb.org/t/p/original/",

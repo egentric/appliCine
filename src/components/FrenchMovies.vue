@@ -1,9 +1,9 @@
 <template>
   <div>
-    <H1 class="pt-5 font-weight-light pb-4" style="text-align: center"
-      >Films Français</H1
-    >
-    <SortButtons />
+    <h1 class="pt-5 font-weight-light pb-4" style="text-align: center">
+      Films Français
+    </h1>
+    <SortButtons :movies="movies" @sort-movies="sortMovies" />
     <MoviesList :movies="movies" :loading="loading" :errored="errored" />
   </div>
 </template>
@@ -27,6 +27,14 @@ export default {
       errored: false,
     };
   },
+
+  methods: {
+    sortMovies(sortedMovies) {
+      //déclenche si tri effectué dans sortButton
+      this.movies = sortedMovies; //on stock les films trié
+    },
+  },
+
   created: function () {
     axios
       .get(

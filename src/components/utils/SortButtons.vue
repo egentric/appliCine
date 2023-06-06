@@ -1,59 +1,103 @@
 <template>
   <div class="mt-2 mb-3 d-flex justify-content-center">
-    <button class="btn btn-outline-secondary mr-2" @click="sortByTitle">
+    <button class="btn btn-outline-secondary custom-btn" @click="sortByTitle">
       Trier par titre
     </button>
-    <button class="btn btn-outline-secondary mr-2" @click="sortByReleaseDate">
+    <button
+      class="btn btn-outline-secondary custom-btn"
+      @click="sortByReleaseDate"
+    >
       Trier par date de sortie
     </button>
-    <button class="btn btn-outline-secondary" @click="sortByRating">
+    <button class="btn btn-outline-secondary custom-btn" @click="sortByRating">
       Trier par note
     </button>
 
     <MoviesList :movies="movies" :loading="loading" :errored="errored" />
   </div>
 </template>
-
+<style>
+.custom-btn {
+  margin-right: 10px; /* Ajustez la valeur selon votre préférence */
+}
+</style>
 <script>
 export default {
+  name: "SortButtons",
+  props: ["movies"],
   data() {
     return {
-      movies: [],
       loading: true,
       errored: false,
-      sortBy: "", // Ajout d'une propriété pour stocker l'ordre de tri
+      sortedByTitle: false,
+      sortedByReleaseDate: false,
+      sortedByRating: false,
     };
   },
   methods: {
     sortByTitle() {
-      if (this.sortBy === "title") {
-        // Si le tri est déjà par titre, inverse l'ordre
-        this.movies.reverse();
+      let sortedMovies = this.movies; //on déclere une variable qui contient les films en props du fichiers parents
+
+      if (!this.sortedByTitle) {
+        // si les film ne sont pas trié par titre par ordre alphabétique
+
+        sortedMovies.sort((a, b) => {
+          // on trie les film par ordre alphabétique
+          if (a.title < b.title) return -1; // si a avant b dans l'alphabet a=b-1
+          return a.title > b.title ? 1 : 0; // si a après b dans l'alphabet a=b+1 sinon pas de changement (0)
+        });
       } else {
-        // Sinon, effectue le tri par titre
-        this.movies.sort((a, b) => a.title.localeCompare(b.title));
-        this.sortBy = "title";
+        // si film déjà trié
+        sortedMovies.sort((a, b) => {
+          if (a.title > b.title) return -1;
+          return a.title < b.title ? 1 : 0;
+        });
       }
+      this.sortedByTitle = !this.sortedByTitle; //déclare trie fait ou pas
+      this.$emit("sort-movies", sortedMovies); //déclenche un event perso : nom event + variable
     },
+
     sortByReleaseDate() {
-      if (this.sortBy === "releaseDate") {
-        // Si le tri est déjà par date de sortie, inverse l'ordre
-        this.movies.reverse();
+      let sortedMovies = this.movies; //on déclere une variable qui contient les films en props du fichiers parents
+
+      if (!this.sortedByReleaseDate) {
+        // si les film ne sont pas trié par titre par date
+
+        sortedMovies.sort((a, b) => {
+          // on trie les film par ordre date
+          if (a.release_date < b.release_date) return -1; // si a avant b dans date a=b-1
+          return a.release_date > b.release_date ? 1 : 0; // si a après b dans date a=b+1 sinon pas de changement (0)
+        });
       } else {
-        // Sinon, effectue le tri par date de sortie
-        this.movies.sort((a, b) => a.releaseDate.localeCompare(b.releaseDate));
-        this.sortBy = "releaseDate";
+        // si film déjà trié
+        sortedMovies.sort((a, b) => {
+          if (a.release_date > b.release_date) return -1;
+          return a.release_date < b.release_date ? 1 : 0;
+        });
       }
+      this.sortedByReleaseDate = !this.sortedByReleaseDate; //déclare trie fait ou pas
+      this.$emit("sort-movies", sortedMovies); //déclenche un event perso : nom event + variable
     },
     sortByRating() {
-      if (this.sortBy === "rating") {
-        // Si le tri est déjà par note, inverse l'ordre
-        this.movies.reverse();
+      let sortedMovies = this.movies; //on déclere une variable qui contient les films en props du fichiers parents
+
+      if (!this.sortedByRating) {
+        // si les film ne sont pas trié par titre par ordre note
+
+        sortedMovies.sort((a, b) => {
+          // on trie les film par ordre note
+          if (a.vote_average < b.vote_average) return -1; // si a avant b dans note a=b-1
+          return a.vote_average > b.vote_average ? 1 : 0; // si a après b dans note a=b+1 sinon pas de changement (0)
+        });
       } else {
-        // Sinon, effectue le tri par note
-        this.movies.sort((a, b) => b.rating - a.rating);
-        this.sortBy = "rating";
+        // si film déjà trié
+        sortedMovies.sort((a, b) => {
+          if (a.vote_average > b.vote_average) return -1;
+          return a.vote_average < b.vote_average ? 1 : 0;
+        });
       }
+      this.sortedByRating = !this.sortedByRating; //déclare trie fait ou pas
+      this.$emit("sort-movies", sortedMovies); //déclenche un event perso : nom event + variable
     },
   },
 };

@@ -1,14 +1,14 @@
 <template>
   <div v-if="movie" class="card mb-3 mx-auto mt-5" style="max-width: 80%">
     <div class="row g-0">
-      <div class="col-md-4">
+      <div class="col-md-4 aff">
         <img
           v-bind:src="preUrl + movie.poster_path"
-          class="img-fluid rounded-start"
+          class="img-fluid rounded-start p-2"
           v-bind:alt="movie.original_title"
         />
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 video">
         <div
           class="mt-5 d-flex justify-content-center"
           id="trailer"
@@ -21,51 +21,79 @@
             frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen
-            class="shadow"
+            class="shadow p-3"
           ></iframe>
         </div>
         <p class="card-text" style="text-align: center">
-          <b>video</b>
+          <b>vidéo</b>
         </p>
         <div class="card-body">
-          <h5 class="card-title" style="text-align: center">
+          <h3 class="card-title" style="text-align: center">
             {{ movie.title }}
-          </h5>
+          </h3>
           <p class="card-text" style="text-align: center">
-            {{ movie.tagline }}
+            <b>{{ movie.tagline }}</b>
           </p>
-          <p class="card-text" style="text-align: center">
-            <b>Sortie :</b> {{ movie.release_date }}
-          </p>
-          <p class="card-text" style="text-align: center">
-            <b>Genres : </b>
-            <span v-for="genre in movie.genres" :key="genre.id">
-              {{ genre.name }}
-              <span v-if="genre !== movie.genres[movie.genres.length - 1]"
-                >,</span
-              >
-            </span>
-          </p>
-          <p class="card-text" style="text-align: center">
-            <b>Note moyenne :</b> {{ movie.vote_average }}
-          </p>
-          <p class="card-text" style="text-align: center">
-            <b>Titre Original :</b> {{ movie.original_title }}
-          </p>
-          <p class="card-text" style="text-align: center">
-            <b>Résumé : </b>{{ movie.overview }}
-          </p>
+          <div class="row">
+            <div class="col-lg-8 mt-3">
+              <b>Genres : </b>
+              <span v-for="genre in movie.genres" :key="genre.id">
+                {{ genre.name }}
+                <span v-if="genre !== movie.genres[movie.genres.length - 1]"
+                  >,</span
+                >
+              </span>
+            </div>
+            <div class="col-lg-4 mt-3 text-lg-end text-start">
+              <b>Note moyenne :</b> {{ roundedVoteAverage }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-8 mt-3">
+              <b>Titre Original :</b> {{ movie.original_title }}
+            </div>
+            <div class="col-lg-4 mt-3 text-lg-end text-start">
+              <b>Sortie :</b> {{ movie.release_date }}
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col text-start">
+              <b>Résumé : </b>{{ movie.overview }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
+<style>
+.card-body {
+  background-color: gainsboro;
+}
+.aff {
+  background-color: gainsboro;
+}
 
+.video {
+  background-color: gainsboro;
+}
+h3 {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+}
+</style>
 <script>
 import axios from "axios";
 
 export default {
   name: "MovieDetails",
+  computed: {
+    roundedVoteAverage() {
+      if (this.movie) {
+        return this.movie.vote_average.toFixed(1);
+      }
+      return 0;
+    },
+  },
   data() {
     return {
       preUrl: "https://image.tmdb.org/t/p/original/",

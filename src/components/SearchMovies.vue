@@ -13,6 +13,7 @@
     />
   </div>
   <div>
+    <SortButtons :movies="movies" @sort-movies="sortMovies" />
     <MoviesList :movies="movies" :loading="loading" :errored="errored" />
   </div>
 </template>
@@ -20,11 +21,13 @@
 <script>
 import axios from "axios";
 import MoviesList from "./utils/MoviesList.vue";
+import SortButtons from "./utils/SortButtons.vue";
 
 export default {
   name: "SearchMovies",
   components: {
     MoviesList,
+    SortButtons,
   },
 
   data() {
@@ -36,6 +39,11 @@ export default {
     };
   },
   methods: {
+    sortMovies(sortedMovies) {
+      //déclenche si tri effectué dans sortButton
+      this.movies = sortedMovies; //on stock les films trié
+    },
+
     sendRequest() {
       clearTimeout(this.timeoutId); // Annule le délai précédent s'il existe
 
