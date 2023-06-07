@@ -25,7 +25,7 @@
 </template>
 <style>
 .card-body {
-  background-color: snow;
+  background-color: gainsboro;
 }
 .card-header {
   background-color: darkgrey;

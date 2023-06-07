@@ -1,5 +1,13 @@
 <template>
   <div v-if="movie" class="card mb-3 mx-auto mt-5" style="max-width: 80%">
+    <div class="card-header">
+      <h2 class="card-title" style="text-align: center">
+        {{ movie.title }}
+      </h2>
+      <p class="card-text" style="text-align: center">
+        <b>{{ movie.tagline }}</b>
+      </p>
+    </div>
     <div class="row g-0">
       <div class="col-md-4 aff">
         <img
@@ -28,12 +36,6 @@
           <b>vidéo</b>
         </p>
         <div class="card-body">
-          <h3 class="card-title" style="text-align: center">
-            {{ movie.title }}
-          </h3>
-          <p class="card-text" style="text-align: center">
-            <b>{{ movie.tagline }}</b>
-          </p>
           <div class="row">
             <div class="col-lg-8 mt-3">
               <b>Genres : </b>
@@ -67,9 +69,6 @@
   </div>
 </template>
 <style>
-.card-body {
-  background-color: gainsboro;
-}
 .aff {
   background-color: gainsboro;
 }
@@ -77,7 +76,7 @@
 .video {
   background-color: gainsboro;
 }
-h3 {
+h2 {
   font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
 }
 </style>
